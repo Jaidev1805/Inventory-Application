@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Category</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="/">Inventory</a>
+            <nav class="topnav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link active" href="/categories">Categories</a>
+                <a class="nav-link" href="/items">Items</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="button" href="/categories">Back</a>
+            </div>
+        </header>
+
+        <main class="page">
+            <section class="page-header">
+                <div>
+                    <p class="eyebrow">Create</p>
+                    <h1 class="page-title">New category</h1>
+                    <p class="page-intro">Add a category to keep similar products grouped together.</p>
+                </div>
+            </section>
+
+            <section class="form-card">
+                <% if (errors && errors.length > 0) { %>
+                    <ul class="form-errors">
+                        <% errors.forEach(error => { %>
+                            <li class="error-item"><%= error.msg %></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+
+                <form class="form-grid" action="/categories" method="POST">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" value="<%= values && values.name ? values.name : '' %>" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" required><%= values && values.description ? values.description : '' %></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="button button-primary" type="submit">Create category</button>
+                        <a class="button" href="/categories">Cancel</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

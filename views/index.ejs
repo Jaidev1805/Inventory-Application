@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="/">INVENTORY</a>
+            <nav class="topnav">
+                <a class="nav-link active" href="/">Home</a>
+                <a class="nav-link" href="/categories">Categories</a>
+                <a class="nav-link" href="/items">Items</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="button" href="/categories/new">Add Category</a>
+                <a class="button button-primary" href="/items/new">Add Item</a>
+            </div>
+        </header>
+
+        <main class="page">
+            <section class="page-header">
+                <div>
+                    <p class="eyebrow">Overview</p>
+                    <h1 class="page-title">TechStore Inventory Management</h1>
+                    <p class="page-intro">Welcome to TechStore Inventory Management, a web-based inventory system designed to help businesses organize and manage their technology products efficiently. The application allows users to browse product categories, view detailed product information, and perform complete inventory management operations.</p>
+                    <br>
+                    <p class="page-intro">Products are organized into categories such as Laptops, Monitors, Keyboards, Mice, Storage Devices, and Chargers. Each product includes essential details like brand, price, available stock, specifications, and a detailed description, making it easy to track and manage inventory.</p>
+                </div>
+            </section>
+
+            <section class="cards-grid">
+                <article class="card">
+                    <h2 class="card-title">Categories</h2>
+                    <p class="card-copy">Organise your inventory with clear product families and concise descriptions.</p>
+                    <a class="card-link" href="/categories">Open categories</a>
+                </article>
+                <article class="card">
+                    <h2 class="card-title">Items</h2>
+                    <p class="card-copy">Review pricing, quantity, and category placement in a single place.</p>
+                    <a class="card-link" href="/items">Open items</a>
+                </article>
+                <article class="card">
+                    <h2 class="card-title">Quick actions</h2>
+                    <p class="card-copy">Create a new category or add an item directly from the top bar.</p>
+                    <a class="card-link" href="/items/new">Add new item</a>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

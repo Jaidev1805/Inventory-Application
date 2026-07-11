@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="/">Inventory</a>
+            <nav class="topnav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/categories">Categories</a>
+                <a class="nav-link active" href="/items">Items</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="button button-primary" href="/items/new">Add Item</a>
+            </div>
+        </header>
+
+        <main class="page">
+            <section class="page-header">
+                <div>
+                    <p class="eyebrow">Inventory</p>
+                    <h1 class="page-title">Items</h1>
+                    <p class="page-intro">Review stock, pricing, and category context from a single focused list.</p>
+                </div>
+            </section>
+
+            <% if (items.length > 0) { %>
+                <section class="products-grid products-grid--two" aria-label="Items list">
+                    <% items.forEach(item => { %>
+                        <article class="product-card">
+                            <div class="product-main">
+                                <div class="product-visual"><%= item.name.charAt(0).toUpperCase() %></div>
+                                <div class="product-meta">
+                                    <h3><%= item.name %></h3>
+                                    <p><%= item.category || 'Uncategorised' %></p>
+                                </div>
+                            </div>
+                            <div class="product-details">
+                                <span class="badge badge-neutral">$<%= item.price !== undefined && item.price !== null ? Number(item.price).toFixed(2) : '0.00' %></span>
+                                <span class="badge <%= item.stock > 0 ? 'badge-success' : 'badge-danger' %>"><%= item.stock > 0 ? 'In stock' : 'Out of stock' %></span>
+                                <a class="button" href="/items/<%= item.id %>">View</a>
+                            </div>
+                        </article>
+                    <% }) %>
+                </section>
+            <% } else { %>
+                <div class="empty-state">
+                    <h3>No items yet</h3>
+                    <p>Add your first product to begin tracking pricing and stock.</p>
+                    <a class="button button-primary" href="/items/new">Create item</a>
+                </div>
+            <% } %>
+        </main>
+    </div>
+</body>
+</html>

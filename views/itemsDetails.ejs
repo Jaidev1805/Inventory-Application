@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= item.name %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="/">Inventory</a>
+            <nav class="topnav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/categories">Categories</a>
+                <a class="nav-link active" href="/items">Items</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="button" href="/items">Back</a>
+                <a class="button button-primary" href="/items/<%= item.id %>/edit">Edit</a>
+            </div>
+        </header>
+
+        <main class="page">
+            <section class="page-header">
+                <div>
+                    <p class="eyebrow">Item details</p>
+                    <h1 class="page-title"><%= item.name %></h1>
+                    <p class="page-intro"><%= item.long_description || item.description %></p>
+                </div>
+            </section>
+
+            <section class="detail-layout">
+                <article class="detail-card">
+                    <div class="detail-hero">
+                        <div class="hero-visual"><%= item.name.charAt(0).toUpperCase() %></div>
+                        <div>
+                            <h2 class="detail-title"><%= item.name %></h2>
+                            <p class="detail-copy"><%= item.long_description || item.description %></p>
+                            <div class="actions">
+                                <a class="button" href="/items/<%= item.id %>/edit">Edit item</a>
+                                <form action="/items/<%= item.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <button class="button button-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="detail-card">
+                    <h2 class="section-title">Item information</h2>
+                    <div class="detail-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Price</span>
+                            <span class="metric-value">$<%= item.price !== undefined && item.price !== null ? item.price.toFixed(2) : '0.00' %></span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Stock</span>
+                            <span class="metric-value"><%= item.stock %></span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Category</span>
+                            <span class="metric-value"><a href="/categories/<%= item.category_id %>"><%= category.name %></a></span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

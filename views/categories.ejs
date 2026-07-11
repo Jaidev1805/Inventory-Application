@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="/">Inventory</a>
+            <nav class="topnav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link active" href="/categories">Categories</a>
+                <a class="nav-link" href="/items">Items</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="button button-primary" href="/categories/new">Add Category</a>
+            </div>
+        </header>
+
+        <main class="page">
+            <section class="page-header">
+                <div>
+                    <p class="eyebrow">Product groups</p>
+                    <h1 class="page-title">Categories</h1>
+                    <p class="page-intro">Keep your catalogue organised with clear categories that make browsing and editing easy.</p>
+                </div>
+            </section>
+
+            <% if (categories.length > 0) { %>
+                <section class="products-grid">
+                    <% categories.forEach(category => { %>
+                        <article class="product-card">
+                            <div class="product-main">
+                                <div class="product-visual"><%= category.name.charAt(0).toUpperCase() %></div>
+                                <div class="product-meta">
+                                    <h3><%= category.name %></h3>
+                                    <p><%= category.description %></p>
+                                </div>
+                            </div>
+                            <div class="product-details">
+                                <span class="badge badge-neutral">Category</span>
+                                <a class="button" href="/categories/<%= category.id %>">View</a>
+                            </div>
+                        </article>
+                    <% }) %>
+                </section>
+            <% } else { %>
+                <div class="empty-state">
+                    <h3>No categories yet</h3>
+                    <p>Create your first category to start structuring your inventory.</p>
+                    <a class="button button-primary" href="/categories/new">Create category</a>
+                </div>
+            <% } %>
+        </main>
+    </div>
+</body>
+</html>

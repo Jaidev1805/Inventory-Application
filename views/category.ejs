@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= category.name %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="brand" href="/">Inventory</a>
+            <nav class="topnav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link active" href="/categories">Categories</a>
+                <a class="nav-link" href="/items">Items</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="button" href="/categories/<%= category.id %>/edit">Edit</a>
+                <a class="button button-primary" href="/items/new">Add Item</a>
+            </div>
+        </header>
+
+        <main class="page">
+            <section class="page-header">
+                <div>
+                    <p class="eyebrow">Category</p>
+                    <h1 class="page-title"><%= category.name %></h1>
+                    <p class="page-intro"><%= category.description %></p>
+                </div>
+            </section>
+
+            <section class="detail-layout">
+                <article class="detail-card">
+                    <div class="detail-hero">
+                        <div class="hero-visual"><%= category.name.charAt(0).toUpperCase() %></div>
+                        <div>
+                            <h2 class="detail-title"><%= category.name %></h2>
+                            <p class="detail-copy"><%= category.description %></p>
+                            <div class="actions">
+                                <a class="button" href="/categories/<%= category.id %>/edit">Edit category</a>
+                                <form action="/categories/<%= category.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                    <button class="button button-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="detail-card">
+                    <h2 class="section-title">Products in this category</h2>
+                    <p class="section-copy"><%= items.length %> item<%= items.length === 1 ? '' : 's' %> currently assigned.</p>
+                    <% if (items.length > 0) { %>
+                        <section class="products-grid" aria-label="Products in category">
+                            <% items.forEach(item => { %>
+                                <% const qty = (item.stock !== undefined && item.stock !== null) ? item.stock : (item.quantity !== undefined && item.quantity !== null ? item.quantity : 0); %>
+                                <article class="product-card">
+                                    <div class="product-main">
+                                        <div class="product-visual"><%= item.name.charAt(0).toUpperCase() %></div>
+                                        <div class="product-meta">
+                                            <h3><%= item.name %></h3>
+                                            <p><%= item.description ? item.description : '' %></p>
+                                        </div>
+                                    </div>
+                                    <div class="product-details">
+                                        <span class="badge badge-neutral">$<%= item.price !== undefined && item.price !== null ? Number(item.price).toFixed(2) : '0.00' %></span>
+                                        <span class="badge <%= qty > 0 ? 'badge-success' : 'badge-danger' %>"><%= qty > 0 ? 'In stock' : 'Out of stock' %></span>
+                                        <a class="button" href="/items/<%= item.id %>">View</a>
+                                    </div>
+                                </article>
+                            <% }) %>
+                        </section>
+                    <% } else { %>
+                        <div class="empty-state">
+                            <h3>No items yet</h3>
+                            <p>This category is waiting for its first product.</p>
+                            <a class="button button-primary" href="/items/new">Create item</a>
+                        </div>
+                    <% } %>
+                </article>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
