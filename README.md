@@ -1,6 +1,6 @@
 # Inventory Application
 
-A modern, lightweight inventory management web application built with Node.js and Express, created as part of The Odin Project's Node.js curriculum. It allows users to create, view, update, and delete product categories and inventory items, with form validation and PostgreSQL-backed persistence.
+A modern, lightweight inventory management web application built with Node.js and Express, created as part of [The Odin Project's] (https://www.theodinproject.com/lessons/node-path-nodejs-inventory-application) Node.js curriculum. It allows users to create, view, update, and delete product categories and inventory items, with form validation and PostgreSQL-backed persistence.
 
 ## Overview
 
