@@ -11,7 +11,9 @@ This project provides a simple but practical interface for tracking inventory da
 - Node.js
 - Express.js
 - EJS templating engine
-- PostgreSQL with the pg driver
+- PostgreSQL
+- Neon PostgreSQL (Cloud Database)
+- pg (node-postgres)
 - express-validator for server-side form validation
 
 ## Features
@@ -63,11 +65,11 @@ inventory-application/
 
 ### Prerequisites
 
-Make sure the following are installed on your machine:
+Make sure the following are installed or available:
 
 - Node.js (v18 or newer recommended)
 - npm
-- PostgreSQL database
+- A PostgreSQL database (local PostgreSQL or a Neon PostgreSQL database)
 
 ### 1. Clone the Repository
 
@@ -84,10 +86,19 @@ npm install
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in the project root and add your PostgreSQL connection string:
+Create a `.env` file in the project root and add your database connection string.
+
+#### Using Neon PostgreSQL (Cloud Database)
 
 ```env
-DATABASE_URL=postgres://username:password@localhost:5432/inventory_db
+DATABASE_URL=postgresql://username:password@ep-xxxxx.region.aws.neon.tech/neondb?sslmode=require
+PORT=3000
+```
+
+#### Using Local PostgreSQL
+
+```env
+DATABASE_URL=postgresql://username:password@localhost:5432/inventory
 PORT=3000
 ```
 
@@ -97,18 +108,25 @@ Connect to PostgreSQL and run the following SQL:
 
 ```sql
 CREATE TABLE categories (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  description TEXT NOT NULL
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT
 );
 
 CREATE TABLE items (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  description TEXT NOT NULL,
-  price NUMERIC(10, 2),
-  stock INTEGER DEFAULT 0,
-  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT,
+    brand VARCHAR(100),
+    price DECIMAL(10,2) NOT NULL,
+    stock INTEGER DEFAULT 0,
+    category_id INTEGER NOT NULL,
+    long_description TEXT,
+
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id)
+        REFERENCES categories(id)
+        ON DELETE RESTRICT
 );
 ```
 
